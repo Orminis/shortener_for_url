@@ -1,6 +1,7 @@
 # pydantic is a library that uses type annotation to validate data and manage settings.
 from pydantic import BaseSettings
 
+from functools import lru_cache
 
 """The BaseSettings class comes in handy to define environment variables in your application. 
 You only have to define the variables that you want to use, and pydantic takes care of the rest. 
@@ -12,8 +13,10 @@ class Settings(BaseSettings):
     db_url: str = "sqlite:///./shortener.db"    # Address of your database
 
 
+@lru_cache
 def get_settings():
     settings = Settings()
     print(f"Loading settings for: {settings.env_name}")
     return settings
+
 
